@@ -16,7 +16,10 @@ init()
 
 
 def get_language(code):
-	return isoCodes[code]
+	try:
+		return isoCodes[code]
+	except KeyError:
+		return code
 
 
 def read_pageview_data(file_path):
@@ -52,11 +55,7 @@ class PageView:
 			projects = []
 			for project in language_code[1:]:
 				projects.append(PageView.projectsDict[project])
-		try:
-			language = get_language(language)
-		except KeyError:
-			pass
-		self.language = language
+		self.language = get_language(language)
 		self.language = language
 		self.projects = projects
 		self.page_title = page_title
@@ -81,11 +80,7 @@ class PageView:
 class GeoEdit:
 	def __init__(self, language, country, activity, lower_bound, upper_bound):
 		language = language.replace('wiki', '')
-		try:
-			language = get_language(language)
-		except KeyError:
-			pass
-		self.language = language
+		self.language = get_language(language)
 		self.country = country
 		self.activity = activity
 		self.lowerBound = int(lower_bound)
