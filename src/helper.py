@@ -7,7 +7,7 @@ isoCodes = {}
 
 def init():
 	for line in isoCodesFile.readlines():
-		line = line.strip().split(' ')
+		line = line.strip().split('\t')
 		code = line[0]
 		language = line[1]
 		isoCodes[code] = language
