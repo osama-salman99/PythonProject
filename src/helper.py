@@ -1,4 +1,5 @@
 import re
+import pandas as pd
 
 isoCodesFile = open(r'../res/iso_codes.txt', encoding='utf8')
 isoCodes = {}
@@ -22,8 +23,8 @@ def get_language(code):
 		return code
 
 
-def read_pageview_data(file_path):
-	file = open(file_path, encoding='utf8')
+def read_pageviews_data(filepath):
+	file = open(filepath, encoding='utf8')
 	pageviews = []
 	for line in file.readlines():
 		line = line.strip().split(' ')
@@ -31,13 +32,46 @@ def read_pageview_data(file_path):
 	return pageviews
 
 
-def read_geoeditors_data(file_path):
-	file = open(file_path, encoding='utf8')
+def pageviews_to_dataframe(filepath):
+	pageviews = read_pageviews_data(filepath)
+	data = []
+	for edit in pageviews:
+		data.append(edit.as_list())
+	return pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views'])
+
+
+def read_geoeditors_data(filepath):
+	file = open(filepath, encoding='utf8')
 	geoEditors = []
 	for line in file.readlines():
 		line = line.strip().split('\t')
 		geoEditors.append(GeoEdit(line[0], line[1], line[2], line[3], line[4]))
 	return geoEditors
+
+
+def geoeditors_to_dataframe(filepath):
+	geoeditors = read_geoeditors_data(filepath)
+	data = []
+	for edit in geoeditors:
+		data.append(edit.as_list())
+	return pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound'])
+
+
+def read_unique_devices_per_domain_data(filepath):
+	file = open(filepath, encoding='utf8')
+	uniqueDevices = []
+	for line in file.readlines():
+		line = line.strip().split('\t')
+		uniqueDevices.append(UniqueDomainAccess(line[0], line[1], line[2], line[3]))
+	return uniqueDevices
+
+
+def unique_devices_to_dataframe(filepath):
+	uniqueDevices = read_unique_devices_per_domain_data(filepath)
+	data = []
+	for edit in uniqueDevices:
+		data.append(edit.as_list())
+	return pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset'])
 
 
 class PageView:
@@ -73,6 +107,9 @@ class PageView:
 	def get_number_of_views(self):
 		return self.get_number_of_views()
 
+	def as_list(self):
+		return [self.language, self.projects, self.page_title, self.number_of_views]
+
 	def __str__(self):
 		return self.language + '\t' + str(self.projects) + '\t' + self.page_title + '\t' + str(self.number_of_views)
 
@@ -101,6 +138,41 @@ class GeoEdit:
 	def get_upper_bound(self):
 		return self.upperBound
 
+	def as_list(self):
+		return [self.language, self.country, self.activity, self.lowerBound, self.upperBound]
+
 	def __str__(self):
 		return self.language + '\t' + self.country + '\t' + self.activity + '\t' + str(self.lowerBound) + '\t' + str(
 			self.upperBound)
+
+
+class UniqueDomainAccess:
+	def __init__(self, domain, under_estimate, estimate, offset):
+		splitDomain = domain.split('.')
+		lanCode = splitDomain[0]
+		language = get_language(lanCode)
+		if language == lanCode:
+			language = None
+		self.project = splitDomain[-2]
+		self.language = language
+		self.underEstimate = int(under_estimate)
+		self.estimate = int(estimate)
+		self.offset = int(offset)
+
+	def get_project(self):
+		return self.project
+
+	def get_under_estimate(self):
+		return self.underEstimate
+
+	def get_estimate(self):
+		return self.estimate
+
+	def get_offset(self):
+		return self.offset
+
+	def as_list(self):
+		return [self.language, self.project, self.underEstimate, self.estimate, self.offset]
+
+	def __str__(self):
+		return self.language + '\t' + self.project + '\t' + self.underEstimate + '\t' + self.estimate + '\t' + self.offset

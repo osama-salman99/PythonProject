@@ -1,10 +1,4 @@
 from helper import *
 
-print(get_language('en'))
-data = read_geoeditors_data(r'..\res\geoeditors-monthly-2021-03.tsv')
-i = 0
-for datum in data:
-	print(datum)
-	if i > 500:
-		break
-	i += 1
+# dataframe = pageviews_to_dataframe(r'..\res\pageviews-20210401-120000.txt')
+# print(dataframe)
