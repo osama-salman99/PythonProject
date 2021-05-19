@@ -1,7 +1,7 @@
 from helper import *
 
 print(get_language('en'))
-data = get_pageview_data(r'..\res\pageviews-20210401-120000.txt')
+data = read_geoeditors_data(r'..\res\geoeditors-monthly-2021-03.tsv')
 i = 0
 for datum in data:
 	print(datum)

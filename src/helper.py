@@ -19,13 +19,22 @@ def get_language(code):
 	return isoCodes[code]
 
 
-def get_pageview_data(file_path):
+def read_pageview_data(file_path):
 	file = open(file_path, encoding='utf8')
 	pageviews = []
 	for line in file.readlines():
 		line = line.strip().split(' ')
 		pageviews.append(PageView(line[0], line[1], line[2]))
 	return pageviews
+
+
+def read_geoeditors_data(file_path):
+	file = open(file_path, encoding='utf8')
+	geoEditors = []
+	for line in file.readlines():
+		line = line.strip().split('\t')
+		geoEditors.append(GeoEdit(line[0], line[1], line[2], line[3], line[4]))
+	return geoEditors
 
 
 class PageView:
@@ -96,3 +105,7 @@ class GeoEdit:
 
 	def get_upper_bound(self):
 		return self.upperBound
+
+	def __str__(self):
+		return self.language + '\t' + self.country + '\t' + self.activity + '\t' + str(self.lowerBound) + '\t' + str(
+			self.upperBound)
