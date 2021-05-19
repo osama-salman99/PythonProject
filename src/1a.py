@@ -1,6 +1,6 @@
-from helper import get_language
+from helper import *
 
-f = open(r'..\res\pageviews-20210401-120000.txt.txt', encoding='utf8')
-lines = f.readlines()
-
-print(get_language('ar'))
+print(get_language('en'))
+data = get_pageview_data(r'..\res\pageviews-20210401-120000.txt')
+for datum in data:
+	print(datum)
