@@ -23,55 +23,52 @@ def get_language(code):
 		return code
 
 
-def read_pageviews_data(filepath):
+def get_pageviews_data(filepath):
 	file = open(filepath, encoding='utf8')
 	pageviews = []
 	for line in file.readlines():
 		line = line.strip().split(' ')
 		pageviews.append(PageView(line[0], line[1], line[2]))
-	return pageviews
-
-
-def pageviews_to_dataframe(filepath):
-	pageviews = read_pageviews_data(filepath)
 	data = []
 	for edit in pageviews:
 		data.append(edit.as_list())
-	return pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views'])
+	return pageviews, pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views'])
 
 
-def read_geoeditors_data(filepath):
+def get_geoeditors_data(filepath):
 	file = open(filepath, encoding='utf8')
 	geoEditors = []
 	for line in file.readlines():
 		line = line.strip().split('\t')
 		geoEditors.append(GeoEdit(line[0], line[1], line[2], line[3], line[4]))
-	return geoEditors
-
-
-def geoeditors_to_dataframe(filepath):
-	geoeditors = read_geoeditors_data(filepath)
 	data = []
-	for edit in geoeditors:
+	for edit in geoEditors:
 		data.append(edit.as_list())
-	return pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound'])
+	return geoEditors, pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound'])
 
 
-def read_unique_devices_per_domain_data(filepath):
+def get_unique_devices_per_domain_data(filepath):
 	file = open(filepath, encoding='utf8')
 	uniqueDevices = []
 	for line in file.readlines():
 		line = line.strip().split('\t')
 		uniqueDevices.append(UniqueDomainAccess(line[0], line[1], line[2], line[3]))
-	return uniqueDevices
-
-
-def unique_devices_to_dataframe(filepath):
-	uniqueDevices = read_unique_devices_per_domain_data(filepath)
 	data = []
-	for edit in uniqueDevices:
-		data.append(edit.as_list())
-	return pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset'])
+	for uniqueDevice in uniqueDevices:
+		data.append(uniqueDevice.as_list())
+	return uniqueDevices, pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset'])
+
+
+def get_unique_devices_per_project_data(filepath):
+	file = open(filepath, encoding='utf8')
+	uniqueDevices = []
+	for line in file.readlines():
+		line = line.strip().split('\t')
+		uniqueDevices.append(UniqueProjectAccess(line[0], line[1], line[2], line[3]))
+	data = []
+	for uniqueDevice in uniqueDevices:
+		data.append(uniqueDevice.as_list())
+	return uniqueDevices, pd.DataFrame(data, columns=['Project', 'Under Estimate', 'Estimate', 'Offset'])
 
 
 class PageView:
@@ -147,7 +144,7 @@ class GeoEdit:
 
 
 class UniqueDomainAccess:
-	def __init__(self, domain, under_estimate, estimate, offset):
+	def __init__(self, domain, underestimate, estimate, offset):
 		splitDomain = domain.split('.')
 		lanCode = splitDomain[0]
 		language = get_language(lanCode)
@@ -155,7 +152,7 @@ class UniqueDomainAccess:
 			language = None
 		self.project = splitDomain[-2]
 		self.language = language
-		self.underEstimate = int(under_estimate)
+		self.underestimate = int(underestimate)
 		self.estimate = int(estimate)
 		self.offset = int(offset)
 
@@ -163,7 +160,7 @@ class UniqueDomainAccess:
 		return self.project
 
 	def get_under_estimate(self):
-		return self.underEstimate
+		return self.underestimate
 
 	def get_estimate(self):
 		return self.estimate
@@ -172,7 +169,33 @@ class UniqueDomainAccess:
 		return self.offset
 
 	def as_list(self):
-		return [self.language, self.project, self.underEstimate, self.estimate, self.offset]
+		return [self.language, self.project, self.underestimate, self.estimate, self.offset]
 
 	def __str__(self):
-		return self.language + '\t' + self.project + '\t' + self.underEstimate + '\t' + self.estimate + '\t' + self.offset
+		return self.language + '\t' + self.project + '\t' + self.underestimate + '\t' + self.estimate + '\t' + self.offset
+
+
+class UniqueProjectAccess:
+	def __init__(self, project, underestimate, estimate, offset):
+		self.project = project
+		self.underestimate = int(underestimate)
+		self.estimate = int(estimate)
+		self.offset = int(offset)
+
+	def get_project(self):
+		return self.project
+
+	def get_underestimate(self):
+		return self.underestimate
+
+	def get_estimate(self):
+		return self.estimate
+
+	def get_offset(self):
+		return self.offset
+
+	def as_list(self):
+		return [self.project, self.underestimate, self.estimate, self.offset]
+
+	def __str__(self):
+		return self.project + '\t' + str(self.underestimate) + '\t' + str(self.estimate) + '\t' + str(self.offset)
