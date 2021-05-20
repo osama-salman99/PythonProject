@@ -32,7 +32,7 @@ def get_pageviews_data(filepath):
 	data = []
 	for edit in pageviews:
 		data.append(edit.as_list())
-	return pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views']), pageviews
+	return pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views'])
 
 
 def get_geoeditors_data(filepath):
@@ -44,7 +44,7 @@ def get_geoeditors_data(filepath):
 	data = []
 	for edit in geoEditors:
 		data.append(edit.as_list())
-	return pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound']), geoEditors
+	return pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound'])
 
 
 def get_unique_devices_per_domain_data(filepath):
@@ -56,7 +56,7 @@ def get_unique_devices_per_domain_data(filepath):
 	data = []
 	for uniqueDevice in uniqueDevices:
 		data.append(uniqueDevice.as_list())
-	return pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset']), uniqueDevices
+	return pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset'])
 
 
 def get_unique_devices_per_project_data(filepath):
@@ -68,7 +68,7 @@ def get_unique_devices_per_project_data(filepath):
 	data = []
 	for uniqueDevice in uniqueDevices:
 		data.append(uniqueDevice.as_list())
-	return pd.DataFrame(data, columns=['Project', 'Under Estimate', 'Estimate', 'Offset']), uniqueDevices
+	return pd.DataFrame(data, columns=['Project', 'Under Estimate', 'Estimate', 'Offset'])
 
 
 class PageView:
