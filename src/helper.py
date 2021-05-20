@@ -32,7 +32,7 @@ def get_pageviews_data(filepath):
 	data = []
 	for edit in pageviews:
 		data.append(edit.as_list())
-	return pageviews, pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views'])
+	return pd.DataFrame(data, columns=['Language', 'Projects', 'Page Title', 'Views']), pageviews
 
 
 def get_geoeditors_data(filepath):
@@ -44,7 +44,7 @@ def get_geoeditors_data(filepath):
 	data = []
 	for edit in geoEditors:
 		data.append(edit.as_list())
-	return geoEditors, pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound'])
+	return pd.DataFrame(data, columns=['Language', 'Country', 'Activity', 'Lower Bound', 'Upper Bound']), geoEditors
 
 
 def get_unique_devices_per_domain_data(filepath):
@@ -56,7 +56,7 @@ def get_unique_devices_per_domain_data(filepath):
 	data = []
 	for uniqueDevice in uniqueDevices:
 		data.append(uniqueDevice.as_list())
-	return uniqueDevices, pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset'])
+	return pd.DataFrame(data, columns=['Language', 'Project', 'Under Estimate', 'Estimate', 'Offset']), uniqueDevices
 
 
 def get_unique_devices_per_project_data(filepath):
@@ -68,7 +68,7 @@ def get_unique_devices_per_project_data(filepath):
 	data = []
 	for uniqueDevice in uniqueDevices:
 		data.append(uniqueDevice.as_list())
-	return uniqueDevices, pd.DataFrame(data, columns=['Project', 'Under Estimate', 'Estimate', 'Offset'])
+	return pd.DataFrame(data, columns=['Project', 'Under Estimate', 'Estimate', 'Offset']), uniqueDevices
 
 
 class PageView:
@@ -107,7 +107,7 @@ class PageView:
 	def as_list(self):
 		return [self.language, self.projects, self.page_title, self.number_of_views]
 
-	def __str__(self):
+	def __repr__(self):
 		return self.language + '\t' + str(self.projects) + '\t' + self.page_title + '\t' + str(self.number_of_views)
 
 
@@ -138,7 +138,7 @@ class GeoEdit:
 	def as_list(self):
 		return [self.language, self.country, self.activity, self.lowerBound, self.upperBound]
 
-	def __str__(self):
+	def __repr__(self):
 		return self.language + '\t' + self.country + '\t' + self.activity + '\t' + str(self.lowerBound) + '\t' + str(
 			self.upperBound)
 
@@ -171,7 +171,7 @@ class UniqueDomainAccess:
 	def as_list(self):
 		return [self.language, self.project, self.underestimate, self.estimate, self.offset]
 
-	def __str__(self):
+	def __repr__(self):
 		return self.language + '\t' + self.project + '\t' + self.underestimate + '\t' + self.estimate + '\t' + self.offset
 
 
@@ -197,5 +197,5 @@ class UniqueProjectAccess:
 	def as_list(self):
 		return [self.project, self.underestimate, self.estimate, self.offset]
 
-	def __str__(self):
+	def __repr__(self):
 		return self.project + '\t' + str(self.underestimate) + '\t' + str(self.estimate) + '\t' + str(self.offset)

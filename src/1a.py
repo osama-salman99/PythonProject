@@ -1,4 +1,4 @@
 from helper import *
 
-dataframe = unique_devices_to_dataframe(r'..\res\unique_devices_per_domain_daily-2018-10-29.txt')
+dataframe, y = get_geoeditors_data(r'..\res\geoeditors-monthly-2021-03.tsv')
 print(dataframe)
