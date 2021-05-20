@@ -105,7 +105,7 @@ class PageView:
 		return self.get_number_of_views()
 
 	def as_list(self):
-		return [self.language, '|'.join(map(str, self.projects)), self.page_title, self.number_of_views]
+		return [self.language, '|'.join(self.projects), self.page_title, self.number_of_views]
 
 	def __repr__(self):
 		return self.language + '\t' + str(self.projects) + '\t' + self.page_title + '\t' + str(self.number_of_views)
