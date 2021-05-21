@@ -87,7 +87,6 @@ class PageView:
 			for project in language_code[1:]:
 				projects.append(PageView.projectsDict[project])
 		self.language = get_language(language)
-		self.language = language
 		self.projects = projects
 		self.page_title = page_title
 		self.number_of_views = int(number_of_views)
