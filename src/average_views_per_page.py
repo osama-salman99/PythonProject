@@ -26,6 +26,7 @@ viewsSizes = data['Total Views'] / sum(languagesDataFrame['Total Views'])
 plt.scatter(data['Number of Pages'], data['Average Views'], s=viewsSizes * 1000)
 plt.xlabel('Number of pages')
 plt.ylabel('Average views per page')
+plt.title('Average views per page for most 25 viewed languages')
 plt.show()
 
 # Least viewed languages
@@ -37,4 +38,5 @@ viewsSizes = data['Total Views'] / sum(languagesDataFrame['Total Views'])
 plt.scatter(data['Number of Pages'], data['Average Views'], s=viewsSizes * 10000000)
 plt.xlabel('Number of pages')
 plt.ylabel('Average views per page')
+plt.title('Average views per page for least 25 viewed languages')
 plt.show()
