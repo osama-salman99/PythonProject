@@ -27,6 +27,7 @@ plt.scatter(data['Number of Pages'], data['Average Views'], s=viewsSizes * 1000)
 plt.xlabel('Number of pages')
 plt.ylabel('Average views per page')
 plt.title('Average views per page for most 25 viewed languages')
+plt.savefig(r'..\output\avg_views_per_page_most.png')
 plt.show()
 
 # Least viewed languages
@@ -39,4 +40,5 @@ plt.scatter(data['Number of Pages'], data['Average Views'], s=viewsSizes * 10000
 plt.xlabel('Number of pages')
 plt.ylabel('Average views per page')
 plt.title('Average views per page for least 25 viewed languages')
+plt.savefig(r'..\output\avg_views_per_page_least.png')
 plt.show()
