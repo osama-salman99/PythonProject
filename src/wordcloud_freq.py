@@ -10,7 +10,7 @@ frequencies = {}
 for language in dataframe['Language']:
 	frequencies[language.replace(',', '')] = dataframe[dataframe['Language'] == language]['Views'].iloc[0]
 
-wordCloud = WordCloud(width=500, height=500, background_color='white', min_font_size=10, relative_scaling=0	) \
+wordCloud = WordCloud(width=500, height=500, background_color='white', min_font_size=10, relative_scaling=0) \
 	.generate_from_frequencies(frequencies)
 
 # plot the WordCloud image
@@ -19,4 +19,4 @@ plt.imshow(wordCloud)
 plt.axis("off")
 plt.tight_layout(pad=0)
 plt.savefig(r'../output/wordcloud.png')
-# plt.show()
+plt.show()
