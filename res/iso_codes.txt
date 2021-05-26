@@ -146,7 +146,7 @@ sk	Slovak
 sl	Slovenian
 so	Somali
 st	Southern Sotho
-es	Spanish, Castilian
+es	Spanish
 su	Sundanese
 sw	Swahili
 ss	Swati
