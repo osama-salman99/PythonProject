@@ -2,7 +2,7 @@ from wordcloud import WordCloud
 from helper import *
 import matplotlib.pyplot as plt
 
-dataframe = get_pageviews_data(r'..\res\pageviews-20210401-120000-sample.txt')
+dataframe = get_pageviews_data(r'..\res\pageviews-20210401-120000.txt')
 dataframe = dataframe[dataframe['Page Title'] == 'YouTube']
 print(dataframe)
 
