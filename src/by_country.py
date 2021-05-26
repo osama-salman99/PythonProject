@@ -23,7 +23,7 @@ fig = px.choropleth(data_frame=data,
 					locations='ISOs',
 					color='Editors',
 					hover_name='Country',
-					color_continuous_scale='RdYlGn',
+					color_continuous_scale='RdYlGn_r',
 					title='Editors per Country Heatmap')
 
 fig.show()
